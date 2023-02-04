@@ -25,6 +25,7 @@ export class UsersService {
     }
 
     create(user: User){
-        return this.usersRepository.create(user);
+        const userEntity = this.usersRepository.create(user);
+        return this.usersRepository.save(userEntity);
     }
 }
