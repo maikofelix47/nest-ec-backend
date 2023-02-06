@@ -7,23 +7,14 @@ import { UsersModule } from './users/users.module';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-//entities
-import { User } from './users/user.entity';
+
+import { DBConfig } from 'db-config';
 
 @Module({
   imports: [ProductModule, CategoryModule, UsersModule,
-   TypeOrmModule.forRoot({
-    type: '',
-    host: '',
-    port: 0,
-    username: '',
-    password: '',
-    database: '',
-    logging: true,
-    retryAttempts: 2,
-    autoLoadEntities: true,
-    synchronize: true,
-   })
+   TypeOrmModule.forRoot(
+   DBConfig
+   )
   ],
   controllers: [AppController],
   providers: [AppService],

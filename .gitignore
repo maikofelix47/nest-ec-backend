@@ -37,3 +37,5 @@ lerna-debug.log*
 # test files
 categories.json
 products.json
+
+db-config.ts
