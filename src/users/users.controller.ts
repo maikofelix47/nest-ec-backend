@@ -30,6 +30,12 @@ export class UsersController {
         return this.usersService.create(payload);
      }
 
+     @Post('update-password')
+     updateUserPassword(@Body() body: { email: string, password: string}){
+          const { email, password } = body;
+         return this.usersService.updateUserPassword(email, password);
+     }
+
 
 
 }
