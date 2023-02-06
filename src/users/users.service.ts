@@ -33,12 +33,12 @@ export class UsersService {
         return this.usersRepository.save(userEntity);
     }
 
-    async updateUserPassword(email: string, newPassword: string){
-        const user = await this.usersRepository.findOneBy({email: email});
+    async updateUserPassword(id: number, body: Partial<User>){
+        const user = await this.usersRepository.findOneBy({id, email: body.email });
         if(!user){
             throw new Error('User with the email not found!');
         }
-        Object.assign(user,{ password: newPassword });
+        Object.assign(user,{ password: body.password });
         return this.usersRepository.save(user);
     }
 }
