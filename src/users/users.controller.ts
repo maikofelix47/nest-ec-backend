@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Param, Body } from '@nestjs/common';
+import { Controller, Get, Post, Param, Body, Delete } from '@nestjs/common';
 
 import { UsersService } from './users.service';
 
@@ -34,6 +34,11 @@ export class UsersController {
      updateUserPassword(@Body() body: { email: string, password: string}){
           const { email, password } = body;
          return this.usersService.updateUserPassword(email, password);
+     }
+
+     @Delete('/:id')
+     deleteUser(@Param('id') id: string){
+       return this.usersService.remove(parseInt(id));
      }
 
 
