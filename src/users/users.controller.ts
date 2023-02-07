@@ -3,7 +3,6 @@ import { Controller, Get, Post, Param, Body, Delete, Patch, NotFoundException, U
 import { UsersService } from './users.service';
 
 // DTO'S
-import { CreateUserDto } from './dtos/create-user-dto';
 import { UserDto } from './dtos/user.dto';
 
 import { SerializeResponse } from '../interceptors/serialize.interceptor';
@@ -27,16 +26,6 @@ export class UsersController {
             throw new NotFoundException('User not Found');
          }
          return user;
-     }
-
-     @Post()
-     signUpUser(@Body() body: CreateUserDto){
-         const payload = {
-            ...body,
-            isActive: true,
-            id: 0
-         };
-        return this.usersService.create(payload);
      }
 
      @Patch('/:id')

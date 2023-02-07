@@ -20,6 +20,10 @@ export class UsersService {
        return this.usersRepository.findOneBy({id});
     }
 
+    findByEmail(email: string): Promise<User[]>{
+         return this.usersRepository.findBy({email});
+    }
+
     async remove(id: number): Promise<void>{
         const user = await this.findOne(id);
         if(!user){
@@ -28,7 +32,7 @@ export class UsersService {
         await this.usersRepository.remove(user);
     }
 
-    create(user: User): Promise<User>{
+    create(user: Partial<User>): Promise<User>{
         const userEntity = this.usersRepository.create(user);
         return this.usersRepository.save(userEntity);
     }
