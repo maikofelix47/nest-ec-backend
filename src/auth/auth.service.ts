@@ -39,7 +39,7 @@ export class AuthService {
 
         if(dbPassword !== hashedPw) throw new BadRequestException('wrong username or password');
 
-        else return user;
+        return user;
 
     }
 }
