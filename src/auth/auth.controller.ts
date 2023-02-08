@@ -1,4 +1,4 @@
-import { Controller, Body, Post, UseGuards, Request } from '@nestjs/common';
+import { Controller, Body, Post, UseGuards, Request, Get } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from 'src/users/dtos/create-user-dto';
 
@@ -24,6 +24,12 @@ export class AuthController {
     @Post('/sign-in')
     signIn(@Request() req: any): Promise<any>{
        return this.authService.login(req.user);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Get('/profile')
+    getProfile(@Request() req){
+        return req;
     }
 
 
