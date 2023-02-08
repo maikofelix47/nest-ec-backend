@@ -1,27 +1,29 @@
-import { Controller, Body, Post } from '@nestjs/common';
+import { Controller, Body, Post, UseGuards, Request } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from 'src/users/dtos/create-user-dto';
 
 import { SerializeResponse } from '../interceptors/serialize.interceptor';
 import { UserDto } from '../users/dtos/user.dto';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { LocalAuthGuard } from './guards/local-auth.guard';
 
 @Controller('auth')
-@SerializeResponse(UserDto)
 export class AuthController {
      constructor(private authService: AuthService){
 
      }
 
     @Post('sign-up')
+    @SerializeResponse(UserDto)
     signUpUser(@Body() body: CreateUserDto){
         const { email, password } = body;
        return this.authService.signUp(email,password);
     }
 
+    @UseGuards(LocalAuthGuard)
     @Post('/sign-in')
-    signIn(@Body() body: CreateUserDto){
-        const { email, password } = body;
-       return this.authService.signIn(email,password);
+    signIn(@Request() req: any): Promise<any>{
+       return this.authService.login(req.user);
     }
 
 

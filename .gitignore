@@ -39,3 +39,4 @@ categories.json
 products.json
 
 db-config.ts
+jwt-constants.ts
