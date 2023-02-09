@@ -10,13 +10,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 
 import { DBConfig } from 'db-config';
+import { PermissionModule } from './permission/permission.module';
+import { RoleModule } from './role/role.module';
 
 @Module({
   imports: [ProductModule, CategoryModule, UsersModule,
    TypeOrmModule.forRoot(
    DBConfig
    ),
-   AuthModule
+   AuthModule,
+   PermissionModule,
+   RoleModule
   ],
   controllers: [AppController],
   providers: [AppService],
