@@ -2,7 +2,7 @@ import { Controller, Get, Post, Param, Body, NotFoundException } from '@nestjs/c
 
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
-import { Category } from '../models/category';
+import { Category } from './category.entity';
 
 @Controller('category')
 export class CategoryController {

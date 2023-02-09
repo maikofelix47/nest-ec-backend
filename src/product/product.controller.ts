@@ -4,7 +4,9 @@ import { ProductService } from './product.service';
 
 // DTOS
 import { CreateProductDto } from './dto/create-product.dto';
-import { Product } from '../models/product';
+
+
+import { Product } from './product.entity';
 
 @Controller('product')
 export class ProductController {

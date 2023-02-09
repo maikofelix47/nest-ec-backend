@@ -7,4 +7,7 @@ export interface Product{
     inStock: number;
     productImg: string;
     rating: number;
+    uuid: string;
+    createdAt: Date;
+    updatedAt: Date;
 }
