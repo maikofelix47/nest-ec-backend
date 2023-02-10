@@ -12,7 +12,10 @@ export class RolePermission{
     roles: Role
 
     @ManyToOne(()=> Permission, (permission: any)=> permission)
-    permissions: Permission[]
+    permissions: Permission[];
+
+    @Column()
+    createdBy: number;
 
     @CreateDateColumn()
     dateCreated: Date;

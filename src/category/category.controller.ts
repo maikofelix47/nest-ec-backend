@@ -32,6 +32,7 @@ export class CategoryController {
     @Post()
     createCategory(@Body() body: CreateCategoryDto){
         const payload = (body as unknown) as Category;
+        payload.createdBy = 1;
         return this.categoryService.createCategory(payload);
     }
 }

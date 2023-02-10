@@ -24,6 +24,9 @@ export class Role {
   @Generated('uuid')
   uuid: string;
 
+  @Column()
+  createdBy: number;
+
   @CreateDateColumn({ nullable: false })
   dateCreated: Date;
 

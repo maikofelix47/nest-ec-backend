@@ -24,6 +24,9 @@ export class Permission {
   @Generated('uuid')
   uuid: string;
 
+  @Column()
+  createdBy: number;
+
   @CreateDateColumn()
   dateCreated: Date;
 

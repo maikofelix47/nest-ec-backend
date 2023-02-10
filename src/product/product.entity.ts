@@ -46,6 +46,9 @@ export class Product {
   @Column({ nullable: true})
   voidedReason: string;
 
+  @Column()
+  createdBy: number;
+
   @CreateDateColumn()
   createdAt: Date;
 

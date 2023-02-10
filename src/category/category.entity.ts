@@ -34,6 +34,9 @@ export class Category {
   @Column({ nullable: true})
   voidedReason: string;
 
+  @Column()
+  createdBy: number;
+
   @CreateDateColumn()
   createdAt: Date;
 
