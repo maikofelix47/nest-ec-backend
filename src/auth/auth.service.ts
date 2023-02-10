@@ -34,7 +34,7 @@ export class AuthService {
     async validateUser(email: string, password: string){
 
         const users = await this.usersService.findByEmail(email);
-        if(users.length === 0) throw new NotFoundException('user with such an email and password doe snot exist');
+        if(users.length === 0) throw new NotFoundException('Wrong username or password!');
 
         const user = users[0];
         const [dbSalt,dbPassword] = (user.password).split('.');
