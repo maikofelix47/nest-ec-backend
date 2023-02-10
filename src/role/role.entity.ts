@@ -1,3 +1,4 @@
+import { RolePermission } from 'src/role-permission/role-permission.entity';
 import {
   Column,
   CreateDateColumn,
@@ -7,8 +8,6 @@ import {
   UpdateDateColumn,
   OneToMany
 } from 'typeorm';
-
-import { Permission } from '../permission/permission-entity';
 
 @Entity()
 export class Role {
@@ -43,6 +42,6 @@ export class Role {
   @Column({ nullable: true })
   voidedReason: string;
 
-  @OneToMany(()=> Permission, (permission)=> permission.roles)
-  permissions: Permission[]
+  @OneToMany(()=> RolePermission,(rolePermission)=> rolePermission.roles)
+  rolePermissions: RolePermission[]
 }

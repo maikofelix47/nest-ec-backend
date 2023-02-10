@@ -12,6 +12,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DBConfig } from 'db-config';
 import { PermissionModule } from './permission/permission.module';
 import { RoleModule } from './role/role.module';
+import { RolePermissionModule } from './role-permission/role-permission.module';
+import { UserRolePermissionModule } from './user-role-permission/user-role-permission.module';
 
 @Module({
   imports: [ProductModule, CategoryModule, UsersModule,
@@ -20,7 +22,9 @@ import { RoleModule } from './role/role.module';
    ),
    AuthModule,
    PermissionModule,
-   RoleModule
+   RoleModule,
+   RolePermissionModule,
+   UserRolePermissionModule
   ],
   controllers: [AppController],
   providers: [AppService],
