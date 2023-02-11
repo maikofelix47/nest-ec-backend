@@ -14,6 +14,10 @@ export class ProductService {
         return this.productRepo.findBy({id});
     }
 
+    findByCategoryId(categoryId: number): Promise<Product[]>{
+         return this.productRepo.findBy({categoryId});
+    }
+
     findAll(){
         return this.productRepo.find();
     }

@@ -27,8 +27,15 @@ export class ProductController {
     @Post()
     createProduct(@Body() body: CreateProductDto): Promise<Product>{
          const payload = (body as unknown) as Product;
+         payload.createdBy = 1;
          return this.prodService.createProduct(payload);
     }
+
+    @Get('/category/:categoryId')
+    getProductsByCategoryId(@Param('categoryId') categoryId: string){
+        return this.prodService.findByCategoryId(parseInt(categoryId));
+    }
+
 
 
 
