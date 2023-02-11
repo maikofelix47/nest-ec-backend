@@ -8,6 +8,8 @@ import { JwtService } from '@nestjs/jwt';
 
 const promisifiedScrypt = promisify(scrypt);
 
+import { jwtConstants } from 'jwt-constants';
+
 
 @Injectable()
 export class AuthService {
@@ -56,9 +58,12 @@ export class AuthService {
         const payload = { email: user.email, sub: user.id};
 
         const accessToken =  await this.jwtService.sign(payload);
+        const now =  new Date();
+        const tokenExpiration = now.setSeconds(now.getSeconds() + jwtConstants.expiresInS);
 
         return {
-            access_token: accessToken
+            access_token: accessToken,
+            token_expiration: tokenExpiration
         };
 
     }
