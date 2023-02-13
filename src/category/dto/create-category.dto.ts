@@ -5,4 +5,6 @@ export class CreateCategoryDto {
   name: string;
   @IsString()
   featureImg: string;
+  @IsString()
+  description: string;
 }

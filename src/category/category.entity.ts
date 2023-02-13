@@ -16,6 +16,9 @@ export class Category {
   name: string;
 
   @Column()
+  description: string;
+
+  @Column()
   featureImg: string;
 
   @Column()
