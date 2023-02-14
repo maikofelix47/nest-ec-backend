@@ -41,3 +41,5 @@ products.json
 db-config.ts
 jwt-constants.ts
 aws-constants.ts
+
+.env
