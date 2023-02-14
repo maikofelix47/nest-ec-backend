@@ -11,6 +11,7 @@ import { MediaService } from 'src/media/media.service';
 import { AWSFileUploadResponse } from '../models/aws-file-upload-response';
 import { Media } from '../media/media.entity';
 
+
 @Injectable()
 export class CategoryService {
   constructor(
@@ -19,11 +20,23 @@ export class CategoryService {
   ) {}
 
   findAll(): Promise<Category[]> {
-    return this.categoryRepo.find();
+    return this.categoryRepo.find({
+      relations: {
+        media: true
+      }
+    });
   }
 
-  findById(id: number): Promise<Category[]> {
-    return this.categoryRepo.findBy({ id });
+  findById(id: number): Promise<Category> {
+    return this.categoryRepo.findOne({ 
+      where: {
+        id: id,
+      },
+      relations: {
+        media: true
+      }
+      
+    });
   }
 
   async createCategory(category: Category, file: Express.Multer.File) {

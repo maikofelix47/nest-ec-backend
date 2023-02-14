@@ -3,15 +3,18 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { Category } from './category.entity';
-import { MediaService } from 'src/media/media.service';
-import { AWSFileUploadResponse } from '../models/aws-file-upload-response';
+
+import { SerializeResponse } from '../interceptors/serialize.interceptor';
+import { CategoryDto } from './dto/category.dto';
+
 @Controller('category')
 export class CategoryController {
     constructor(private categoryService: CategoryService, 
-        private mediaService: MediaService){
+        ){
 
     }
     @Get()
+    @SerializeResponse(CategoryDto)
     async findAll(){
        const categories = await this.categoryService.findAll();
        if(!categories){
@@ -22,6 +25,7 @@ export class CategoryController {
     }
     
     @Get('/:id')
+    @SerializeResponse(CategoryDto)
     async findById(@Param('id') id: number){
        const category = await this.categoryService.findById(id);
        if(!category){

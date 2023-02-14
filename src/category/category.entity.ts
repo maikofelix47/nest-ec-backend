@@ -6,7 +6,7 @@ import {
   Generated,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToOne,
+  ManyToOne
 } from 'typeorm';
 
 @Entity()
@@ -46,5 +46,6 @@ export class Category {
   updatedAt: Date;
 
   @ManyToOne(()=> Media, (media)=> media.categories)
-  media: Media
+  media: Media;
+
 }
