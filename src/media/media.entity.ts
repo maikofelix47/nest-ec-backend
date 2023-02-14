@@ -1,4 +1,4 @@
-import { Media } from '../media/media.entity';
+import { Category } from 'src/category/category.entity';
 import {
   Column,
   Entity,
@@ -7,10 +7,11 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
+  OneToMany,
 } from 'typeorm';
 
 @Entity()
-export class Category {
+export class Media {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -21,19 +22,25 @@ export class Category {
   description: string;
 
   @Column()
+  type: string;
+
+  @Column()
+  url: string;
+
+  @Column()
   @Generated('uuid')
   uuid: string;
 
-  @Column({ nullable: true})
+  @Column({ nullable: true })
   voided: boolean;
 
   @Column({ nullable: true, type: 'timestamp' })
   voidedDate: Date;
 
-  @Column({ nullable: true})
+  @Column({ nullable: true })
   voidedBy: number;
 
-  @Column({ nullable: true})
+  @Column({ nullable: true })
   voidedReason: string;
 
   @Column()
@@ -45,6 +52,6 @@ export class Category {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @ManyToOne(()=> Media, (media)=> media.categories)
-  media: Media
+  @OneToMany(() => Category, (category) => category.media)
+  categories: Category[];
 }

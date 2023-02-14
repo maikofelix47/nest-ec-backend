@@ -14,6 +14,7 @@ import { PermissionModule } from './permission/permission.module';
 import { RoleModule } from './role/role.module';
 import { RolePermissionModule } from './role-permission/role-permission.module';
 import { UserRolePermissionModule } from './user-role-permission/user-role-permission.module';
+import { MediaModule } from './media/media.module';
 
 @Module({
   imports: [ProductModule, CategoryModule, UsersModule,
@@ -24,7 +25,8 @@ import { UserRolePermissionModule } from './user-role-permission/user-role-permi
    PermissionModule,
    RoleModule,
    RolePermissionModule,
-   UserRolePermissionModule
+   UserRolePermissionModule,
+   MediaModule
   ],
   controllers: [AppController],
   providers: [AppService],

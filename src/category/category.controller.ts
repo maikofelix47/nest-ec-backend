@@ -1,12 +1,14 @@
-import { Controller, Get, Post, Param, Body, NotFoundException } from '@nestjs/common';
-
+import { Controller, Get, Post, Param, Body, NotFoundException, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { Category } from './category.entity';
-
+import { MediaService } from 'src/media/media.service';
+import { AWSFileUploadResponse } from '../models/aws-file-upload-response';
 @Controller('category')
 export class CategoryController {
-    constructor(private categoryService: CategoryService){
+    constructor(private categoryService: CategoryService, 
+        private mediaService: MediaService){
 
     }
     @Get()
@@ -30,9 +32,11 @@ export class CategoryController {
     }
     
     @Post()
-    createCategory(@Body() body: CreateCategoryDto){
-        const payload = (body as unknown) as Category;
-        payload.createdBy = 1;
-        return this.categoryService.createCategory(payload);
+    @UseInterceptors(FileInterceptor('file'))
+    async createMedia(@Body() body: CreateCategoryDto, @UploadedFile() file: Express.Multer.File){
+        
+        const categorPayload = (body as unknown) as Category;
+        return this.categoryService.createCategory(categorPayload,file);
+       
     }
 }
