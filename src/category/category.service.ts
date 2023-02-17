@@ -49,9 +49,9 @@ export class CategoryService {
     const mediaPayload: Partial<Media> = {
       name: category.name,
       description: category.description,
-      type: '',
+      type: file?.mimetype || '',
       url: uploadedImage.Location,
-      createdBy: 1,
+      createdBy: category.createdBy,
     };
 
     const media = await this.mediaService.create(mediaPayload);
@@ -60,7 +60,7 @@ export class CategoryService {
       name: category.name,
       description: category.description,
       media: media,
-      createdBy: 1,
+      createdBy: category.createdBy
     };
 
     // create category with media id
