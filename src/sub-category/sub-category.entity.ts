@@ -24,6 +24,10 @@ export class SubCategory {
   @Generated('uuid')
   uuid: string;
 
+  @Column()
+  categoryId: number;
+
+
   @Column({ nullable: true })
   voided: boolean;
 
