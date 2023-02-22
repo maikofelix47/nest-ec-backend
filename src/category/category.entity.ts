@@ -6,8 +6,10 @@ import {
   Generated,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToOne
+  ManyToOne,
+  OneToMany
 } from 'typeorm';
+import { SubCategory } from '../sub-category/sub-category.entity';
 
 @Entity()
 export class Category {
@@ -47,5 +49,8 @@ export class Category {
 
   @ManyToOne(()=> Media, (media)=> media.categories)
   media: Media;
+
+  @OneToMany(()=> SubCategory,(subCategory)=> subCategory.category)
+  subCategories: SubCategory[]
 
 }
