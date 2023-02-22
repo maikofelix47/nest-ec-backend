@@ -20,7 +20,6 @@ import { CategoryDto } from './dto/category.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @Controller('category')
-@UseGuards(JwtAuthGuard)
 export class CategoryController {
   constructor(private categoryService: CategoryService) {}
   @Get()
@@ -46,6 +45,7 @@ export class CategoryController {
   }
 
   @Post()
+  @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileInterceptor('file'))
   async createMedia(
     @Body() body: CreateCategoryDto,
