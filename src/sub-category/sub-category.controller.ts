@@ -31,6 +31,7 @@ export class SubCategoryController {
     const { userId } = req.user;
     const payLoad = {
       ...body,
+      categoryId: parseInt(body.categoryId),
       createdBy: userId,
     } as unknown as SubCategory;
 
