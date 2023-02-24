@@ -1,43 +1,50 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 
 import { ProductService } from './product.service';
 
 // DTOS
 import { CreateProductDto } from './dto/create-product.dto';
 
-
 import { Product } from './product.entity';
 
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+
 @Controller('product')
+@UseGuards(JwtAuthGuard)
 export class ProductController {
-    constructor(private prodService: ProductService){
+  constructor(private prodService: ProductService) {}
 
-    }
+  @Get()
+  getAllProducts(): Promise<Product[]> {
+    return this.prodService.findAll();
+  }
 
-    @Get()
-    getAllProducts(): Promise<Product[]>{
-        return this.prodService.findAll();
-    }
+  @Get('/:id')
+  getProductById(@Param('id') id: string): Promise<Product[]> {
+    return this.prodService.findById(parseInt(id));
+  }
 
-    @Get('/:id')
-    getProductById(@Param('id') id: string): Promise<Product[]>{
-      return this.prodService.findById(parseInt(id));
-    }
+  @Post()
+  createProduct(
+    @Body() body: CreateProductDto,
+    @Request() req: any,
+  ): Promise<Product> {
+    const { userId } = req.user;
+    const payload = body as unknown as Product;
+    payload.createdBy = userId;
+    return this.prodService.createProduct(payload);
+  }
 
-    @Post()
-    createProduct(@Body() body: CreateProductDto): Promise<Product>{
-         const payload = (body as unknown) as Product;
-         payload.createdBy = 1;
-         return this.prodService.createProduct(payload);
-    }
-
-    @Get('/category/:categoryId')
-    getProductsByCategoryId(@Param('categoryId') categoryId: string){
-        return this.prodService.findByCategoryId(parseInt(categoryId));
-    }
-
-
-
-
-
+  @Get('/sub-category/:subCategoryId')
+  getProductsBySubCategory(@Param('subCategoryId') subCategoryId: string) {
+    return this.prodService.findBySubCategoryId(parseInt(subCategoryId));
+  }
 }

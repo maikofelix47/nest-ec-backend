@@ -5,8 +5,9 @@ import {
   Generated,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
 } from 'typeorm';
-
+import { SubCategory } from '../sub-category/sub-category.entity';
 @Entity()
 export class Product {
   @PrimaryGeneratedColumn()
@@ -19,7 +20,7 @@ export class Product {
   price: number;
 
   @Column()
-  categoryId: number;
+  subCategoryId: number;
 
   @Column()
   inStock: number;
@@ -28,22 +29,19 @@ export class Product {
   productImg: string;
 
   @Column()
-  rating: number;
-
-  @Column()
   @Generated('uuid')
   uuid: string;
 
-  @Column({ nullable: true})
+  @Column({ nullable: true })
   voided: boolean;
 
   @Column({ nullable: true, type: 'timestamp' })
   voidedDate: Date;
 
-  @Column({ nullable: true})
+  @Column({ nullable: true })
   voidedBy: number;
 
-  @Column({ nullable: true})
+  @Column({ nullable: true })
   voidedReason: string;
 
   @Column()
@@ -54,4 +52,7 @@ export class Product {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @ManyToOne(() => SubCategory, (subCategory) => subCategory.products)
+  subCategory: SubCategory;
 }

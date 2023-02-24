@@ -26,4 +26,10 @@ export class SubCategoryService {
     const subCategoryEntity = await this.subCategoryRepo.create(subCategory);
     return this.subCategoryRepo.save(subCategoryEntity);
   }
+
+  findByCategoryId(categoryId: number): Promise<SubCategory[]> {
+    return this.subCategoryRepo.findBy({
+      categoryId,
+    });
+  }
 }

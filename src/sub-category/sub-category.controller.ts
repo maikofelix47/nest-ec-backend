@@ -37,4 +37,10 @@ export class SubCategoryController {
 
     return this.subCategoryService.create(payLoad);
   }
+
+  @Get('/category/:categoryId')
+  findByCategoryId(@Param('categoryId') categoryId: string) {
+    const catId = parseInt(categoryId);
+    return this.subCategoryService.findByCategoryId(catId);
+  }
 }
