@@ -5,6 +5,9 @@ export class CreateProductDto {
   name: string;
 
   @IsString()
+  description: string;
+
+  @IsNumber()
   subCategoryId: number;
 
   @IsNumber()

@@ -7,6 +7,6 @@ export class CreateSubCategoryDto{
     @IsString()
     description: string;
 
-    @IsString()
-    categoryId: string;
+    @IsNumber()
+    categoryId: number;
 }

@@ -40,6 +40,7 @@ export class ProductController {
     const { userId } = req.user;
     const payload = body as unknown as Product;
     payload.createdBy = userId;
+    payload.productImg = body.name;
     return this.prodService.createProduct(payload);
   }
 

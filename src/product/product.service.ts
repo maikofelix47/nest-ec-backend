@@ -18,7 +18,11 @@ export class ProductService {
   }
 
   findAll() {
-    return this.productRepo.find();
+    return this.productRepo.find({
+      relations: {
+        subCategory: true
+      }
+    });
   }
 
   async createProduct(product: Product) {
