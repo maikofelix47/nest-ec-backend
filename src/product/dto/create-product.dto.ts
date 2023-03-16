@@ -7,12 +7,12 @@ export class CreateProductDto {
   @IsString()
   description: string;
 
-  @IsNumber()
-  subCategoryId: number;
+  @IsString()
+  subCategoryId: string;
 
-  @IsNumber()
-  price: number;
+  @IsString()
+  price: string;
 
-  @IsNumber()
-  inStock: number;
+  @IsString()
+  inStock: string;
 }

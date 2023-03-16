@@ -10,31 +10,45 @@ import { Media } from '../media/media.entity';
 export class ProductService {
   constructor(
     @InjectRepository(Product) private productRepo: Repository<Product>,
-    private mediaService: MediaService
+    private mediaService: MediaService,
   ) {}
 
   findById(id: number) {
-    return this.productRepo.findBy({ id });
+    return this.productRepo.find({
+      where: {
+        id: id,
+      },
+      relations: {
+        media: true,
+      },
+    });
   }
 
   findBySubCategoryId(subCategoryId: number): Promise<Product[]> {
-    return this.productRepo.findBy({ subCategoryId });
+    return this.productRepo.find({
+      where: {
+        subCategoryId: subCategoryId,
+      },
+      relations: {
+        media: true,
+      },
+    });
   }
 
   findAll() {
     return this.productRepo.find({
       relations: {
-        subCategory: true
-      }
+        subCategory: true,
+      },
     });
   }
 
-  async createProduct(product: Product,file: Express.Multer.File) {
-     //upload image to aws
-     const uploadedImage: Partial<AWSFileUploadResponse> =
-     await this.mediaService.uploadFile(file.buffer, file.originalname);
+  async createProduct(product: Product, file: Express.Multer.File) {
+    //upload image to aws
+    const uploadedImage: Partial<AWSFileUploadResponse> =
+      await this.mediaService.uploadFile(file.buffer, file.originalname);
 
-      // save media in db and get its id
+    // save media in db and get its id
 
     const productEntity = this.productRepo.create(product);
     const prod = await this.productRepo.save(productEntity);
@@ -45,12 +59,11 @@ export class ProductService {
       type: file?.mimetype || '',
       url: uploadedImage.Location,
       createdBy: product.createdBy,
-      product: prod
+      product: prod,
     };
 
     const media = await this.mediaService.create(mediaPayload);
 
     return prod;
-   
   }
 }

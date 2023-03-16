@@ -12,7 +12,6 @@ import { SubCategory } from './sub-category.entity';
 import { CreateSubCategoryDto } from './dtos/create-sub-category.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 @Controller('sub-category')
-@UseGuards(JwtAuthGuard)
 export class SubCategoryController {
   constructor(private subCategoryService: SubCategoryService) {}
 
@@ -27,6 +26,7 @@ export class SubCategoryController {
   }
 
   @Post()
+  @UseGuards(JwtAuthGuard)
   create(@Body() body: CreateSubCategoryDto, @Request() req: any) {
     const { userId } = req.user;
     const payLoad = {

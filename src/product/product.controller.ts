@@ -7,7 +7,7 @@ import {
   Request,
   UseGuards,
   UseInterceptors,
-  UploadedFile
+  UploadedFile,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ProductService } from './product.service';
@@ -45,7 +45,7 @@ export class ProductController {
     const payload = body as unknown as Product;
     payload.createdBy = userId;
     payload.productImg = body.name;
-    return this.prodService.createProduct(payload,file);
+    return this.prodService.createProduct(payload, file);
   }
 
   @Get('/sub-category/:subCategoryId')
