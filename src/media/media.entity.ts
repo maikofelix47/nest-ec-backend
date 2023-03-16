@@ -1,4 +1,5 @@
-import { Category } from 'src/category/category.entity';
+import { Category } from '../category/category.entity';
+import { Product } from '../product/product.entity';
 import {
   Column,
   Entity,
@@ -6,7 +7,8 @@ import {
   Generated,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany
+  OneToMany,
+  ManyToOne
 } from 'typeorm';
 
 @Entity()
@@ -53,4 +55,7 @@ export class Media {
 
   @OneToMany(() => Category, (category) => category.media)
   categories: Category[];
+
+  @ManyToOne(() => Product, (product) => product.media)
+  product: Product;
 }

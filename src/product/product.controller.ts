@@ -6,8 +6,10 @@ import {
   Param,
   Request,
   UseGuards,
+  UseInterceptors,
+  UploadedFile
 } from '@nestjs/common';
-
+import { FileInterceptor } from '@nestjs/platform-express';
 import { ProductService } from './product.service';
 
 // DTOS
@@ -33,15 +35,17 @@ export class ProductController {
   }
 
   @Post()
+  @UseInterceptors(FileInterceptor('file'))
   createProduct(
     @Body() body: CreateProductDto,
+    @UploadedFile() file: Express.Multer.File,
     @Request() req: any,
   ): Promise<Product> {
     const { userId } = req.user;
     const payload = body as unknown as Product;
     payload.createdBy = userId;
     payload.productImg = body.name;
-    return this.prodService.createProduct(payload);
+    return this.prodService.createProduct(payload,file);
   }
 
   @Get('/sub-category/:subCategoryId')

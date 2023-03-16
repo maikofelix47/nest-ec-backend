@@ -5,12 +5,9 @@ import {
   Param,
   Body,
   NotFoundException,
-  UseInterceptors,
-  UploadedFile,
   UseGuards,
-  Request
+  Request,
 } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { Category } from './category.entity';
@@ -46,15 +43,10 @@ export class CategoryController {
 
   @Post()
   @UseGuards(JwtAuthGuard)
-  @UseInterceptors(FileInterceptor('file'))
-  async createMedia(
-    @Body() body: CreateCategoryDto,
-    @UploadedFile() file: Express.Multer.File,
-    @Request() req: any
-  ) {
+  async createMedia(@Body() body: CreateCategoryDto, @Request() req: any) {
     const { userId } = req.user;
     const categorPayload = body as unknown as Category;
     categorPayload.createdBy = userId;
-    return this.categoryService.createCategory(categorPayload, file);
+    return this.categoryService.createCategory(categorPayload);
   }
 }

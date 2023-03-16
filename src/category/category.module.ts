@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { Category } from './category.entity';
 
-import { MediaModule } from 'src/media/media.module';
+import { MediaModule } from '../media/media.module';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Category]), MediaModule],
