@@ -19,7 +19,7 @@ export class AuthService {
 
     }
 
-    async signUp(email: string, password: string){
+    async signUp(userName: string,email: string, password: string){
         const users = await this.usersService.findByEmail(email);
         if(users.length){
           throw new BadRequestException('email already in use');
@@ -29,7 +29,7 @@ export class AuthService {
         const hash =  (await promisifiedScrypt(password,salt,32)) as Buffer;
         const hashedAndSaltedPw = salt + '.' + hash.toString('hex');
 
-        return this.usersService.create({email,password: hashedAndSaltedPw});
+        return this.usersService.create({userName,email,password: hashedAndSaltedPw});
 
     }
 
@@ -47,23 +47,24 @@ export class AuthService {
 
          const result = {
             id: user.id,
-            email: user.email
+            userName: user.userName
          }
 
          return result;
 
     }
 
-    async login(user: { email: string, id: string}){
-        const payload = { email: user.email, sub: user.id};
+    async login(user: { userName: string, id: string}){
+        const payload = { userName: user.userName, sub: user.id};
 
-        const accessToken =  await this.jwtService.sign(payload);
+        const accessToken = this.jwtService.sign(payload);
         const now =  new Date();
         const tokenExpiration = now.setSeconds(now.getSeconds() + jwtConstants.expiresInS);
 
         return {
             access_token: accessToken,
-            token_expiration: tokenExpiration
+            token_expiration: tokenExpiration,
+            userName: user.userName
         };
 
     }

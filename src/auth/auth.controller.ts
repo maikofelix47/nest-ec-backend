@@ -1,6 +1,6 @@
 import { Controller, Body, Post, UseGuards, Request, Get } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { CreateUserDto } from 'src/users/dtos/create-user-dto';
+import { CreateUserDto } from '../users/dtos/create-user-dto';
 
 import { SerializeResponse } from '../interceptors/serialize.interceptor';
 import { UserDto } from '../users/dtos/user.dto';
@@ -16,8 +16,8 @@ export class AuthController {
     @Post('sign-up')
     @SerializeResponse(UserDto)
     signUpUser(@Body() body: CreateUserDto){
-        const { email, password } = body;
-       return this.authService.signUp(email,password);
+        const { userName, email, password } = body;
+       return this.authService.signUp(userName,email,password);
     }
 
     @UseGuards(LocalAuthGuard)
