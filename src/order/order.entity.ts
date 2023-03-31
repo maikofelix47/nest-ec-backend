@@ -1,24 +1,22 @@
 import {
-  Column,
   Entity,
-  PrimaryGeneratedColumn,
-  OneToOne,
-  JoinColumn,
   Generated,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  Column,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany,
 } from 'typeorm';
-import { User } from '../users/user.entity';
-import { Order } from '../order/order.entity';
+
+import { Customer } from '../customer/customer.entity';
 
 @Entity()
-export class Customer {
+export class Order {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
   @Generated('uuid')
+  @Column()
   uuid: string;
 
   @Column({ nullable: true })
@@ -42,10 +40,6 @@ export class Customer {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToOne(() => User)
-  @JoinColumn()
-  user: User;
-
-  @OneToMany(()=> Order, (order)=> order.customer)
-  orders: Order[]
+  @ManyToOne(() => Customer, (customer) => customer.orders)
+  customer: Customer;
 }

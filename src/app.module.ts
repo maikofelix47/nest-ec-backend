@@ -18,6 +18,7 @@ import { MediaModule } from './media/media.module';
 import { SubCategoryModule } from './sub-category/sub-category.module';
 import { CustomerModule } from './customer/customer.module';
 import { CustomerDetailsModule } from './customer-details/customer-details.module';
+import { OrderModule } from './order/order.module';
 
 @Module({
   imports: [ProductModule, CategoryModule, UsersModule,
@@ -32,7 +33,8 @@ import { CustomerDetailsModule } from './customer-details/customer-details.modul
    MediaModule,
    SubCategoryModule,
    CustomerModule,
-   CustomerDetailsModule
+   CustomerDetailsModule,
+   OrderModule
   ],
   controllers: [AppController],
   providers: [AppService],
