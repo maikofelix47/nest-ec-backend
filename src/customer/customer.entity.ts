@@ -1,44 +1,38 @@
 import {
-  Entity,
   Column,
+  Entity,
   PrimaryGeneratedColumn,
+  OneToOne,
+  JoinColumn,
   Generated,
   CreateDateColumn,
-  UpdateDateColumn
+  UpdateDateColumn,
 } from 'typeorm';
+import { User } from '../users/user.entity';
 
 @Entity()
-export class User {
+export class Customer {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @Column()
-  email: string;
-
-  @Column()
-  userName: string;
-
-  @Column()
-  password: string;
-
-  @Column({ default: true })
-  isActive: boolean;
 
   @Column()
   @Generated('uuid')
   uuid: string;
 
-  @Column({ nullable: true})
+  @Column({ nullable: true })
   voided: boolean;
 
   @Column({ nullable: true, type: 'timestamp' })
   voidedDate: Date;
 
-  @Column({ nullable: true})
+  @Column({ nullable: true })
   voidedBy: number;
 
-  @Column({ nullable: true})
+  @Column({ nullable: true })
   voidedReason: string;
+
+  @Column()
+  createdBy: number;
 
   @CreateDateColumn()
   createdAt: Date;
@@ -46,4 +40,7 @@ export class User {
   @UpdateDateColumn()
   updatedAt: Date;
 
+  @OneToOne(() => User)
+  @JoinColumn()
+  user: User;
 }

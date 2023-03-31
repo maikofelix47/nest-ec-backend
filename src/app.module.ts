@@ -16,6 +16,8 @@ import { RolePermissionModule } from './role-permission/role-permission.module';
 import { UserRolePermissionModule } from './user-role-permission/user-role-permission.module';
 import { MediaModule } from './media/media.module';
 import { SubCategoryModule } from './sub-category/sub-category.module';
+import { CustomerModule } from './customer/customer.module';
+import { CustomerDetailsModule } from './customer-details/customer-details.module';
 
 @Module({
   imports: [ProductModule, CategoryModule, UsersModule,
@@ -28,7 +30,9 @@ import { SubCategoryModule } from './sub-category/sub-category.module';
    RolePermissionModule,
    UserRolePermissionModule,
    MediaModule,
-   SubCategoryModule
+   SubCategoryModule,
+   CustomerModule,
+   CustomerDetailsModule
   ],
   controllers: [AppController],
   providers: [AppService],
