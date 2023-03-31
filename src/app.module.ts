@@ -19,6 +19,7 @@ import { SubCategoryModule } from './sub-category/sub-category.module';
 import { CustomerModule } from './customer/customer.module';
 import { CustomerDetailsModule } from './customer-details/customer-details.module';
 import { OrderModule } from './order/order.module';
+import { OrderDetailsModule } from './order-details/order-details.module';
 
 @Module({
   imports: [ProductModule, CategoryModule, UsersModule,
@@ -34,7 +35,8 @@ import { OrderModule } from './order/order.module';
    SubCategoryModule,
    CustomerModule,
    CustomerDetailsModule,
-   OrderModule
+   OrderModule,
+   OrderDetailsModule
   ],
   controllers: [AppController],
   providers: [AppService],

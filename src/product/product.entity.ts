@@ -10,6 +10,7 @@ import {
 } from 'typeorm';
 import { SubCategory } from '../sub-category/sub-category.entity';
 import { Media } from '../media/media.entity';
+import { OrderDetails } from '../order-details/order-details.entity';
 @Entity()
 export class Product {
   @PrimaryGeneratedColumn()
@@ -63,4 +64,7 @@ export class Product {
 
   @OneToMany(()=> Media, (media)=> media.product)
   media: Media[];
+
+  @OneToMany(()=> OrderDetails, (orderDetails)=> orderDetails.product)
+  orderDetails: OrderDetails[];
 }
